@@ -126,26 +126,6 @@ npm run dev
 Frontend runs at:  
 ➡ `http://localhost:5173`
 
----
-
-# 🧠 How It Works
-
-```
-User logs in with Spotify
-        ↓
-Backend exchanges code for access token
-        ↓
-Backend fetches listening history
-        ↓
-Data saved in SQLite database
-        ↓
-Analytics endpoints compute stats
-        ↓
-Frontend displays charts & insights
-```
-
----
-
 # 📊 Features
 
 ### ✔ Listening Insights
@@ -185,4 +165,5 @@ If you want deployment help, just ask — I can generate the exact steps.
 
 
 MIT License – free to use and modify.
+
 
