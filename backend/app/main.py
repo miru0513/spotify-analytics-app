@@ -18,7 +18,7 @@ def health():
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # for local development
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

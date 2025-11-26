@@ -29,7 +29,7 @@ export default function Dashboard() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [lastSyncedAt, setLastSyncedAt] = useState(null);
 
-  // ---------- helpers ----------
+
 
   const fetchAnalytics = async (id) => {
     const [summaryRes, trendRes, timeRes, sessionsRes] = await Promise.all([
@@ -61,7 +61,7 @@ export default function Dashboard() {
       setTimeDist(data.timeDist);
       setSessions(data.sessions);
 
-      // for now: "last synced" = now (this session)
+
       setLastSyncedAt(new Date().toISOString());
     } catch (err) {
       console.error(err);
@@ -70,8 +70,6 @@ export default function Dashboard() {
       setIsSyncing(false);
     }
   };
-
-  // ---------- initial load ----------
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -88,7 +86,7 @@ export default function Dashboard() {
         setTimeDist(data.timeDist);
         setSessions(data.sessions);
 
-        // treat first successful load as "last synced" for now
+
         setLastSyncedAt(new Date().toISOString());
       } catch (err) {
         console.error(err);
@@ -99,7 +97,6 @@ export default function Dashboard() {
     load();
   }, []);
 
-  // ---------- derived insights ----------
 
   const mostListenedDay = (() => {
     if (!timeDist || timeDist.length === 0) return "N/A";
@@ -128,7 +125,7 @@ export default function Dashboard() {
     ? new Date(lastSyncedAt).toLocaleString()
     : "Unknown";
 
-  // ---------- fallback states ----------
+
 
   if (!userId) {
     return (
@@ -156,7 +153,7 @@ export default function Dashboard() {
     );
   }
 
-  // ---------- main UI ----------
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-slate-900 to-black text-white">

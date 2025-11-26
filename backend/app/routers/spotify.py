@@ -51,14 +51,14 @@ async def get_spotify_me(access_token: str):
 
 @router.get("/login")
 def login():
-    """Redirect user to Spotify login/consent page."""
+
     url = build_auth_url()
     return RedirectResponse(url)
 
 
 @router.get("/callback")
 async def callback(code: str, db: Session = Depends(get_db)):
-    """Spotify redirects here with ?code=..."""
+
     token_data = await exchange_code_for_token(code)
     access_token = token_data["access_token"]
     refresh_token = token_data.get("refresh_token")
@@ -69,7 +69,7 @@ async def callback(code: str, db: Session = Depends(get_db)):
     spotify_user_id = me["id"]
     display_name = me.get("display_name", spotify_user_id)
 
-    # create/update user in DB
+
     user = db.query(User).filter_by(spotify_user_id=spotify_user_id).first()
     if not user:
         user = User(
@@ -89,7 +89,7 @@ async def callback(code: str, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(user)
 
-    # redirect to React dashboard with ?user_id=
+
     frontend_url = f"http://localhost:5173/dashboard?user_id={user.id}"
     from fastapi.responses import RedirectResponse
     return RedirectResponse(frontend_url)

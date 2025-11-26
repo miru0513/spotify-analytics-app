@@ -2,7 +2,7 @@ export default function Login() {
   const BACKEND = "http://127.0.0.1:8000";
 
   const handleLogin = () => {
-    // send the user to the FastAPI Spotify login route
+
     window.location.href = `${BACKEND}/spotify/login`;
   };
 

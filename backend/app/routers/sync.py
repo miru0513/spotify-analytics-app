@@ -11,14 +11,14 @@ router = APIRouter()
 
 
 async def spotify_get(path: str, access_token: str, params: dict | None = None):
-    """Helper to call Spotify Web API with the user's access token."""
+
     base_url = "https://api.spotify.com/v1/"
     headers = {"Authorization": f"Bearer {access_token}"}
 
     async with httpx.AsyncClient() as client:
         resp = await client.get(base_url + path, headers=headers, params=params or {})
         if resp.status_code == 401:
-            # token expired or invalid
+
             raise HTTPException(status_code=401, detail="Spotify token expired or invalid")
         resp.raise_for_status()
         return resp.json()
@@ -26,10 +26,7 @@ async def spotify_get(path: str, access_token: str, params: dict | None = None):
 
 @router.get("/sync/{user_id}")
 async def sync_spotify_data(user_id: int, db: Session = Depends(get_db)):
-    """
-    Fetch top artists, top tracks, and recently played tracks
-    for the given user and store them in the database.
-    """
+
     # 1) Get user
     user = db.query(User).filter_by(id=user_id).first()
     if not user or not user.access_token:
@@ -37,7 +34,7 @@ async def sync_spotify_data(user_id: int, db: Session = Depends(get_db)):
 
     token = user.access_token
 
-    # ---------- TOP ARTISTS ----------
+
     top_artists_data = await spotify_get(
         "me/top/artists",
         token,
@@ -66,7 +63,6 @@ async def sync_spotify_data(user_id: int, db: Session = Depends(get_db)):
             artist.name = name
             artist.genres = genres
 
-    # ---------- TOP TRACKS ----------
     top_tracks_data = await spotify_get(
         "me/top/tracks",
         token,
@@ -79,7 +75,7 @@ async def sync_spotify_data(user_id: int, db: Session = Depends(get_db)):
         album_name = t["album"]["name"]
         popularity = t.get("popularity")
 
-        # primary artist of this track
+
         primary_artist = t["artists"][0]
         artist_spotify_id = primary_artist["id"]
         artist = (
@@ -118,7 +114,7 @@ async def sync_spotify_data(user_id: int, db: Session = Depends(get_db)):
             track.popularity = popularity
             track.artist = artist
 
-    # ---------- RECENTLY PLAYED ----------
+
     recent_data = await spotify_get(
         "me/player/recently-played",
         token,
@@ -131,7 +127,7 @@ async def sync_spotify_data(user_id: int, db: Session = Depends(get_db)):
         spotify_track_id = item["track"]["id"]
         context = (item.get("context") or {}).get("type")
 
-        # avoid duplicates
+
         existing = (
             db.query(ListeningHistory)
             .filter_by(

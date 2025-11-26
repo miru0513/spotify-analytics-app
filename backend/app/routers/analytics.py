@@ -20,7 +20,6 @@ def get_user_or_404(user_id: int, db: Session) -> User:
 @router.get("/summary")
 def summary(user_id: int, db: Session = Depends(get_db)):
     """
-    Basic stats:
     - total tracks stored
     - total listening history rows
     - top 5 artists by play count
@@ -59,7 +58,7 @@ def summary(user_id: int, db: Session = Depends(get_db)):
 
     df = pd.DataFrame(data)
 
-    # top artists
+
     top_artists = (
         df.groupby("artist_name")
         .size()
@@ -69,7 +68,7 @@ def summary(user_id: int, db: Session = Depends(get_db)):
         .to_dict(orient="records")
     )
 
-    # top genres
+
     genre_list = []
     for g in df["genres"]:
         if not g:
@@ -102,10 +101,7 @@ def summary(user_id: int, db: Session = Depends(get_db)):
 
 @router.get("/time-distribution")
 def time_distribution(user_id: int, db: Session = Depends(get_db)):
-    """
-    Count of plays grouped by weekday (0=Mon) and hour (0–23).
-    Frontend can turn this into a heatmap.
-    """
+
     user = get_user_or_404(user_id, db)
 
     history = (
@@ -131,16 +127,13 @@ def time_distribution(user_id: int, db: Session = Depends(get_db)):
     df = pd.DataFrame(rows)
     grouped = df.groupby(["weekday", "hour"]).size().reset_index(name="count")
 
-    # return as simple list of points
+
     return {"points": grouped.to_dict(orient="records")}
 
 
 @router.get("/sessions")
 def sessions(user_id: int, db: Session = Depends(get_db)):
-    """
-    Detect listening sessions:
-    New session starts if gap between plays > 30 minutes.
-    """
+
     user = get_user_or_404(user_id, db)
 
     history = (
@@ -178,12 +171,11 @@ def sessions(user_id: int, db: Session = Depends(get_db)):
             current["plays"] += 1
         last_time = h.played_at
 
-    # close last one
     duration = (current["end"] - current["start"]).total_seconds() / 60.0
     current["duration_minutes"] = duration
     sessions_list.append(current)
 
-    # sort by duration longest first
+
     sessions_list.sort(key=lambda s: s["duration_minutes"], reverse=True)
 
     return {"sessions": sessions_list[:20]}  # top 20 sessions
@@ -191,9 +183,7 @@ def sessions(user_id: int, db: Session = Depends(get_db)):
 
 @router.get("/daily-trend")
 def daily_trend(user_id: int, db: Session = Depends(get_db)):
-    """
-    Plays per day (for line chart / trend analysis).
-    """
+
     user = get_user_or_404(user_id, db)
 
     history = (
