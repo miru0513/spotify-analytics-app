@@ -1,0 +1,5 @@
+py -m uvicorn app.main:app --reload
+npm run dev
+
+http://localhost:5173/
+http://localhost:5173/dashboard?user_id=1

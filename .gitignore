@@ -1,0 +1,29 @@
+# Backend secrets
+backend/.env
+.env
+
+# Backend environment
+backend/venv/
+venv/
+
+# Backend database
+backend/spotify.db
+*.db
+*.sqlite3
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+# Generic
+node_modules/
+dist/
+__pycache__/
+*.pyc
+*.log
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
