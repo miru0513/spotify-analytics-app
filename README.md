@@ -1,14 +1,8 @@
-﻿# Spotify Analytics App
+# 🎧 Spotify Listening Analytics Dashboard  
 
 <img width="2157" height="1089" alt="image" src="https://github.com/user-attachments/assets/239ab117-b644-434a-8514-089e272e3b38" />
 <img width="1758" height="1008" alt="image" src="https://github.com/user-attachments/assets/a6f532da-d7d8-4e75-b9bc-c4b874748e2a" />
 
-
-
-# 🎧 Spotify Listening Analytics Dashboard  
-*A full-stack app that analyzes your Spotify listening behavior through clean, interactive charts & insights.*
-
----
 
 ## 🌟 Overview
 
@@ -170,6 +164,7 @@ If you want deployment help, just ask — I can generate the exact steps.
 
 
 MIT License – free to use and modify.
+
 
 
 
