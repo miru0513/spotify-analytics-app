@@ -161,7 +161,7 @@ export default function Dashboard() {
       <header className="border-b border-white/10 bg-black/40 backdrop-blur">
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
           <span className="text-sm md:text-base font-semibold tracking-tight">
-            Spotify Analytics • Miru 💜
+            Spotify Analytics made by Miru 💜
           </span>
           <span className="text-xs text-gray-400">User #{userId}</span>
         </div>
