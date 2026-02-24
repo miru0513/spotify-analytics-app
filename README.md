@@ -150,20 +150,7 @@ Frontend runs at:
 - Summary statistics block
 
 
-# 🚀 Deployment (Optional Future Feature)
 
-Once deployed:
-
-- Users will NOT need their own Spotify developer app.
-- You will host your own CLIENT_ID / CLIENT_SECRET on the backend server.
-- Example deployment stack:
-  - Backend → Render / Railway / Fly.io
-  - Frontend → Vercel / Netlify
-
-If you want deployment help, just ask — I can generate the exact steps.
-
-
-MIT License – free to use and modify.
 
 
 
